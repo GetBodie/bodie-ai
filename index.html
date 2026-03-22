@@ -438,11 +438,13 @@ window.addEventListener('resize', () => { currentSlide = Math.min(currentSlide, 
 let autoRotate;
 function startAutoRotate() {
   clearInterval(autoRotate);
-  autoRotate = setInterval(() => {
-    const maxSlide = getMaxSlide();
-    currentSlide = currentSlide >= maxSlide ? 0 : currentSlide + 1;
-    updateCarousel();
-    buildDots();
+  autoRotate = setInterval(function() {
+    try {
+      var maxSlide = getMaxSlide();
+      currentSlide = currentSlide >= maxSlide ? 0 : currentSlide + 1;
+      updateCarousel();
+      buildDots();
+    } catch(e) { console.error('carousel error', e); }
   }, 3000);
 }
 startAutoRotate();
@@ -453,9 +455,7 @@ if (carouselSection) {
   carouselSection.addEventListener('touchstart', () => clearInterval(autoRotate), {passive:true});
   carouselSection.addEventListener('touchend', () => setTimeout(startAutoRotate, 3000), {passive:true});
 }
-// Reset auto-rotate on manual interaction
-const origSlide = slideCarousel;
-const origGo = goToSlide;
+
 
 // Touch swipe support
 (function(){
