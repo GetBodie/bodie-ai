@@ -180,12 +180,29 @@ borderRadius: {"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem
 <h2 class="text-5xl md:text-7xl font-headline italic tracking-tight text-tertiary mb-6">More than chatbots.</h2>
 <p class="text-on-surface-variant text-lg leading-relaxed">Bodie builds agents — mini-workers that complete operational and labor-intensive tasks. Lots of agents, focused on narrow tasks, give your team leverage to drive revenue and drop cost.</p>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Carousel -->
+<div class="flex items-center gap-4 mb-8">
+<button onclick="slideCarousel(-1)" class="w-10 h-10 rounded-full border border-outline-variant/20 flex items-center justify-center text-on-surface-variant hover:text-tertiary hover:border-primary/30 transition-all shrink-0">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+</button>
+<button onclick="slideCarousel(1)" class="w-10 h-10 rounded-full border border-outline-variant/20 flex items-center justify-center text-on-surface-variant hover:text-tertiary hover:border-primary/30 transition-all shrink-0">
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+<div class="flex gap-2 ml-2">
+<button onclick="goToSlide(0)" class="carousel-dot w-2 h-2 rounded-full bg-primary w-6 transition-all"></button>
+<button onclick="goToSlide(1)" class="carousel-dot w-2 h-2 rounded-full bg-outline-variant/30 transition-all"></button>
+<button onclick="goToSlide(2)" class="carousel-dot w-2 h-2 rounded-full bg-outline-variant/30 transition-all"></button>
+<button onclick="goToSlide(3)" class="carousel-dot w-2 h-2 rounded-full bg-outline-variant/30 transition-all"></button>
+<button onclick="goToSlide(4)" class="carousel-dot w-2 h-2 rounded-full bg-outline-variant/30 transition-all"></button>
+</div>
+</div>
+<div class="overflow-hidden reveal">
+<div id="carousel-track" class="flex gap-8 transition-transform duration-500 ease-out" style="will-change:transform">
 <!-- Card 1 — Back Office Automation -->
-<div class="group rounded-2xl border border-outline-variant/10 bg-white/[0.03] p-10 md:p-14 hover:border-primary/30 hover:bg-white/[0.05] transition-all duration-500 relative overflow-hidden reveal">
+<div class="carousel-slide min-w-full md:min-w-[calc(50%-1rem)] group rounded-2xl border border-outline-variant/10 bg-white/[0.03] p-10 md:p-14 hover:border-primary/30 hover:bg-white/[0.05] transition-all duration-500 relative overflow-hidden">
 <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 <div class="relative z-10">
-<div class="w-16 h-16 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
+<div class="w-16 h-16 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-8">
 <span class="material-symbols-outlined text-primary text-3xl">precision_manufacturing</span>
 </div>
 <h3 class="text-3xl font-headline italic text-tertiary mb-4">Back Office Automation</h3>
@@ -199,10 +216,10 @@ borderRadius: {"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem
 </div>
 </div>
 <!-- Card 2 — Lead Pipeline Generation -->
-<div class="group rounded-2xl border border-outline-variant/10 bg-white/[0.03] p-10 md:p-14 hover:border-secondary/30 hover:bg-white/[0.05] transition-all duration-500 relative overflow-hidden reveal reveal-delay-1">
+<div class="carousel-slide min-w-full md:min-w-[calc(50%-1rem)] group rounded-2xl border border-outline-variant/10 bg-white/[0.03] p-10 md:p-14 hover:border-secondary/30 hover:bg-white/[0.05] transition-all duration-500 relative overflow-hidden">
 <div class="absolute top-0 right-0 w-64 h-64 bg-secondary/5 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 <div class="relative z-10">
-<div class="w-16 h-16 rounded-xl bg-secondary/10 border border-secondary/20 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
+<div class="w-16 h-16 rounded-xl bg-secondary/10 border border-secondary/20 flex items-center justify-center mb-8">
 <span class="material-symbols-outlined text-secondary text-3xl">trending_up</span>
 </div>
 <h3 class="text-3xl font-headline italic text-tertiary mb-4">Lead Pipeline Generation</h3>
@@ -215,10 +232,10 @@ borderRadius: {"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem
 </div>
 </div>
 <!-- Card 3 — Customer Support Automation -->
-<div class="group rounded-2xl border border-outline-variant/10 bg-white/[0.03] p-10 md:p-14 hover:border-primary/30 hover:bg-white/[0.05] transition-all duration-500 relative overflow-hidden reveal reveal-delay-2">
+<div class="carousel-slide min-w-full md:min-w-[calc(50%-1rem)] group rounded-2xl border border-outline-variant/10 bg-white/[0.03] p-10 md:p-14 hover:border-primary/30 hover:bg-white/[0.05] transition-all duration-500 relative overflow-hidden">
 <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 <div class="relative z-10">
-<div class="w-16 h-16 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
+<div class="w-16 h-16 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-8">
 <span class="material-symbols-outlined text-primary text-3xl">support_agent</span>
 </div>
 <h3 class="text-3xl font-headline italic text-tertiary mb-4">Customer Support Automation</h3>
@@ -232,10 +249,10 @@ borderRadius: {"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem
 </div>
 </div>
 <!-- Card 4 — Data Transformation & Company Knowledge -->
-<div class="group rounded-2xl border border-outline-variant/10 bg-white/[0.03] p-10 md:p-14 hover:border-secondary/30 hover:bg-white/[0.05] transition-all duration-500 relative overflow-hidden reveal reveal-delay-3">
+<div class="carousel-slide min-w-full md:min-w-[calc(50%-1rem)] group rounded-2xl border border-outline-variant/10 bg-white/[0.03] p-10 md:p-14 hover:border-secondary/30 hover:bg-white/[0.05] transition-all duration-500 relative overflow-hidden">
 <div class="absolute top-0 right-0 w-64 h-64 bg-secondary/5 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 <div class="relative z-10">
-<div class="w-16 h-16 rounded-xl bg-secondary/10 border border-secondary/20 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
+<div class="w-16 h-16 rounded-xl bg-secondary/10 border border-secondary/20 flex items-center justify-center mb-8">
 <span class="material-symbols-outlined text-secondary text-3xl">database</span>
 </div>
 <h3 class="text-3xl font-headline italic text-tertiary mb-4">Data Transformation & Company Knowledge</h3>
@@ -245,6 +262,24 @@ borderRadius: {"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem
 <span class="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-[10px] font-label uppercase tracking-widest">Excel</span>
 <span class="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-[10px] font-label uppercase tracking-widest">Email</span>
 <span class="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-[10px] font-label uppercase tracking-widest">PowerPoint</span>
+</div>
+</div>
+</div>
+<!-- Card 5 — Reporting & Decision Intelligence -->
+<div class="carousel-slide min-w-full md:min-w-[calc(50%-1rem)] group rounded-2xl border border-outline-variant/10 bg-white/[0.03] p-10 md:p-14 hover:border-primary/30 hover:bg-white/[0.05] transition-all duration-500 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+<div class="relative z-10">
+<div class="w-16 h-16 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-primary text-3xl">insights</span>
+</div>
+<h3 class="text-3xl font-headline italic text-tertiary mb-4">Reporting & Decision Intelligence</h3>
+<p class="text-on-surface-variant text-lg leading-relaxed mb-8">Agents that pull data from across your systems, generate reports, surface anomalies, and give your leadership the insights they need — without anyone building a dashboard.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-label uppercase tracking-widest">Analytics</span>
+<span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-label uppercase tracking-widest">Reporting</span>
+<span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-label uppercase tracking-widest">Anomaly Detection</span>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -360,6 +395,50 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
 
 
+
+// ═══ Carousel ═══
+let currentSlide = 0;
+const totalSlides = 5;
+function getVisibleSlides() { return window.innerWidth >= 768 ? 2 : 1; }
+function updateCarousel() {
+  const track = document.getElementById('carousel-track');
+  if (!track) return;
+  const slide = track.querySelector('.carousel-slide');
+  if (!slide) return;
+  const slideWidth = slide.offsetWidth + 32;
+  track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+  document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+    dot.className = `carousel-dot w-2 h-2 rounded-full transition-all ${i === currentSlide ? 'bg-primary w-6' : 'bg-outline-variant/30'}`;
+  });
+}
+function slideCarousel(dir) {
+  const maxSlide = totalSlides - getVisibleSlides();
+  currentSlide = Math.max(0, Math.min(maxSlide, currentSlide + dir));
+  updateCarousel();
+}
+function goToSlide(i) {
+  const maxSlide = totalSlides - getVisibleSlides();
+  currentSlide = Math.min(i, maxSlide);
+  updateCarousel();
+}
+window.addEventListener('resize', updateCarousel);
+
+// Touch swipe support
+(function(){
+  const track = document.getElementById('carousel-track');
+  if (!track) return;
+  let startX, startY, isDragging = false;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; isDragging = true; }, {passive: true});
+  track.addEventListener('touchend', e => {
+    if (!isDragging) return;
+    isDragging = false;
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      slideCarousel(dx < 0 ? 1 : -1);
+    }
+  }, {passive: true});
+})();
 
 // ═══ Scroll Reveal ═══
 (function(){
