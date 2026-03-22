@@ -145,7 +145,7 @@ borderRadius: {"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem
 <!-- ═══════════════ HERO ═══════════════ -->
 <section class="relative min-h-[80vh] md:min-h-[921px] flex items-center px-6 md:px-16 py-16 md:py-20 overflow-hidden">
 <div class="absolute inset-0 z-0">
-<canvas id="particle-net" class="absolute inset-0 w-full h-full" style="z-index:2"></canvas>
+<canvas id="particle-net" class="absolute inset-0 w-full h-full pointer-events-none" style="z-index:2"></canvas>
 
 </div>
 <div class="max-w-screen-2xl mx-auto w-full relative z-20">
@@ -319,8 +319,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
   resize();for(let i=0;i<120;i++)ps.push(new P());anim();
   window.addEventListener('resize',()=>{resize();ps.forEach(p=>{if(p.x>w)p.x=w-10;if(p.y>h)p.y=h-10;});});
   const heroSection=c.closest('section');
-  heroSection.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
-  heroSection.addEventListener('mouseleave',()=>{mouse.x=null;mouse.y=null;});
+  heroSection.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;},{passive:true});
+  heroSection.addEventListener('mouseleave',()=>{mouse.x=null;mouse.y=null;},{passive:true});
 })();
 
 
