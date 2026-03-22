@@ -431,23 +431,26 @@ function goToSlide(i) {
 }
 window.addEventListener('resize', () => { currentSlide = Math.min(currentSlide, getMaxSlide()); buildDots(); updateCarousel(); });
 
-// Auto-rotate every 4 seconds, pause on hover/touch
-let autoRotate = setInterval(() => {
-  const maxSlide = totalSlides - getVisibleSlides();
-  currentSlide = currentSlide >= maxSlide ? 0 : currentSlide + 1;
-  updateCarousel();
-}, 4000);
+// Auto-rotate every 3 seconds
+let autoRotate;
+function startAutoRotate() {
+  clearInterval(autoRotate);
+  autoRotate = setInterval(() => {
+    const maxSlide = getMaxSlide();
+    currentSlide = currentSlide >= maxSlide ? 0 : currentSlide + 1;
+    updateCarousel();
+    buildDots();
+  }, 3000);
+}
+startAutoRotate();
 const carouselSection = document.getElementById('carousel-track')?.closest('section');
 if (carouselSection) {
   carouselSection.addEventListener('mouseenter', () => clearInterval(autoRotate));
-  carouselSection.addEventListener('mouseleave', () => {
-    autoRotate = setInterval(() => {
-      const maxSlide = totalSlides - getVisibleSlides();
-      currentSlide = currentSlide >= maxSlide ? 0 : currentSlide + 1;
-      updateCarousel();
-    }, 4000);
-  });
+  carouselSection.addEventListener('mouseleave', startAutoRotate);
 }
+// Reset auto-rotate on manual interaction
+const origSlide = slideCarousel;
+const origGo = goToSlide;
 
 // Touch swipe support
 (function(){
