@@ -423,6 +423,24 @@ function goToSlide(i) {
 }
 window.addEventListener('resize', updateCarousel);
 
+// Auto-rotate every 4 seconds, pause on hover/touch
+let autoRotate = setInterval(() => {
+  const maxSlide = totalSlides - getVisibleSlides();
+  currentSlide = currentSlide >= maxSlide ? 0 : currentSlide + 1;
+  updateCarousel();
+}, 4000);
+const carouselSection = document.getElementById('carousel-track')?.closest('section');
+if (carouselSection) {
+  carouselSection.addEventListener('mouseenter', () => clearInterval(autoRotate));
+  carouselSection.addEventListener('mouseleave', () => {
+    autoRotate = setInterval(() => {
+      const maxSlide = totalSlides - getVisibleSlides();
+      currentSlide = currentSlide >= maxSlide ? 0 : currentSlide + 1;
+      updateCarousel();
+    }, 4000);
+  });
+}
+
 // Touch swipe support
 (function(){
   const track = document.getElementById('carousel-track');
