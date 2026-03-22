@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BODIE AI — AI Transformation</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+darkMode: "class",
+theme: { extend: {
+colors: {
+"outline":"#777575","surface-dim":"#0e0e0e","surface-tint":"#f7ffba","surface-variant":"#262626",
+"outline-variant":"#494847","surface-container-high":"#201f1f","tertiary":"#f9f9f9","secondary":"#00eefc",
+"on-background":"#ffffff","on-surface-variant":"#adaaaa","surface":"#0e0e0e","surface-container":"#1a1919",
+"surface-container-low":"#131313","primary":"#f7ffba","on-primary":"#5a6500","primary-fixed":"#e0f800",
+"primary-dim":"#d8ef00","on-primary-fixed":"#414900","primary-container":"#e0f800",
+"on-surface":"#ffffff","background":"#0e0e0e","surface-container-highest":"#262626",
+"surface-bright":"#2c2c2c","surface-container-lowest":"#000000","on-primary-fixed-variant":"#5c6700",
+"secondary-dim":"#00deec","on-secondary":"#005359"
+},
+fontFamily: { "headline":["Newsreader"], "body":["Inter"], "label":["Inter"] },
+borderRadius: {"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},
+}}
+}
+</script>
+<style>
+.material-symbols-outlined { font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24 }
+
+#contact-modal { transition: opacity 0.3s ease, visibility 0.3s ease; }
+#contact-modal.hidden { opacity: 0; visibility: hidden; }
+#contact-modal:not(.hidden) { opacity: 1; visibility: visible; }
+#modal-content { transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.3s ease; }
+#contact-modal.hidden #modal-content { transform: scale(0.95) translateY(10px); opacity: 0; }
+#contact-modal:not(.hidden) #modal-content { transform: scale(1) translateY(0); opacity: 1; }
+
+/* Animated background gradient */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 100% 0%; }
+  75% { background-position: 0% 100%; }
+  100% { background-position: 0% 50%; }
+}
+.animated-gradient {
+  background: radial-gradient(ellipse at 20% 50%, rgba(0,238,252,0.04) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, rgba(0,238,252,0.03) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 80%, rgba(0,238,252,0.02) 0%, transparent 50%);
+  background-size: 200% 200%;
+  animation: gradient-shift 15s ease-in-out infinite;
+}
+
+/* Scroll animations */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+
+/* Morphing orb */
+@keyframes morph {
+  0%, 100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; transform: rotate(0deg) scale(1); }
+  25% { border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%; transform: rotate(90deg) scale(1.05); }
+  50% { border-radius: 30% 70% 40% 60% / 55% 30% 70% 45%; transform: rotate(180deg) scale(0.95); }
+  75% { border-radius: 55% 45% 60% 40% / 70% 50% 50% 30%; transform: rotate(270deg) scale(1.02); }
+}
+.morphing-orb {
+  animation: morph 12s ease-in-out infinite;
+  background: radial-gradient(circle at 30% 30%, rgba(0,238,252,0.25), rgba(216,239,0,0.15), rgba(0,238,252,0.05));
+  filter: blur(40px);
+}
+
+/* Typing cursor */
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.cursor-blink { animation: blink 1s step-end infinite; }
+
+/* Floating cards */
+@keyframes float1 { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-12px) rotate(0deg); } }
+@keyframes float2 { 0%, 100% { transform: translateY(0) rotate(1deg); } 50% { transform: translateY(-8px) rotate(-1deg); } }
+@keyframes float3 { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(2deg); } }
+.float-1 { animation: float1 6s ease-in-out infinite; }
+.float-2 { animation: float2 5s ease-in-out infinite 0.5s; }
+.float-3 { animation: float3 7s ease-in-out infinite 1s; }
+
+/* Pulse ring */
+@keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 0.6; } 100% { transform: scale(2.5); opacity: 0; } }
+.pulse-ring { animation: pulse-ring 2.5s ease-out infinite; }
+
+/* Gradient text shimmer */
+@keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+.shimmer-text {
+  background: linear-gradient(90deg, #f7ffba 0%, #00eefc 25%, #f7ffba 50%, #00eefc 75%, #f7ffba 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+  padding-right: 0.12em;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+</style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary-fixed">
+
+<!-- Contact Modal -->
+<div id="contact-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeModal()"></div>
+  <div id="modal-content" class="relative bg-surface-container border border-outline-variant/20 rounded-2xl p-10 max-w-lg w-full shadow-2xl">
+    <button onclick="closeModal()" class="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface transition-colors">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+    <h3 class="text-3xl font-headline italic text-tertiary mb-2">Let's Talk</h3>
+    <p class="text-on-surface-variant text-sm mb-8">Tell us about your business. We'll show you what AI can do for it.</p>
+    <form id="contact-form" onsubmit="handleSubmit(event)" class="space-y-5">
+      <div><label class="block text-[10px] uppercase tracking-[0.2em] text-on-surface-variant font-label mb-2">Name</label>
+      <input type="text" name="name" required class="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-on-surface text-sm focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all placeholder:text-on-surface-variant/40" placeholder="Your name"/></div>
+      <div><label class="block text-[10px] uppercase tracking-[0.2em] text-on-surface-variant font-label mb-2">Email</label>
+      <input type="email" name="email" required class="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-on-surface text-sm focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all placeholder:text-on-surface-variant/40" placeholder="you@company.com"/></div>
+      <div><label class="block text-[10px] uppercase tracking-[0.2em] text-on-surface-variant font-label mb-2">Company</label>
+      <input type="text" name="company" class="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-on-surface text-sm focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all placeholder:text-on-surface-variant/40" placeholder="Your company"/></div>
+      <div><label class="block text-[10px] uppercase tracking-[0.2em] text-on-surface-variant font-label mb-2">What are you looking to transform?</label>
+      <textarea name="message" rows="3" required class="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-on-surface text-sm focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all placeholder:text-on-surface-variant/40 resize-none" placeholder="Tell us about your operations, pain points, and what you'd like AI to handle..."></textarea></div>
+      <button type="submit" class="w-full bg-gradient-to-r from-primary to-primary-fixed text-on-primary-fixed px-8 py-4 rounded-lg font-bold text-sm tracking-tight active:scale-[0.98] transition-all duration-300 hover:shadow-[0_0_30px_rgba(247,255,186,0.2)]">Send Message</button>
+    </form>
+    <div id="success-msg" class="hidden text-center py-12">
+      <span class="material-symbols-outlined text-secondary text-6xl mb-4 block">check_circle</span>
+      <h4 class="text-2xl font-headline italic text-tertiary mb-2">Message Sent</h4>
+      <p class="text-on-surface-variant text-sm">We'll be in touch within 24 hours.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="bg-neutral-950/80 backdrop-blur-xl docked full-width top-0 sticky z-50 shadow-[0_4px_30px_rgba(0,238,252,0.04)]">
+<div class="flex justify-between items-center w-full px-8 py-6 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-serif italic text-neutral-100 tracking-tighter">BODIE AI</div>
+<button onclick="openModal()" class="bg-gradient-to-r from-primary to-primary-fixed text-on-primary-fixed px-6 py-2.5 rounded-lg font-bold text-sm tracking-tight active:scale-95 transition-all duration-300">Get Started</button>
+</div>
+<div class="bg-gradient-to-r from-transparent via-outline-variant/20 to-transparent h-px w-full"></div>
+</nav>
+
+<main>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="relative min-h-[921px] flex items-center px-8 md:px-16 py-20 overflow-visible">
+<div class="absolute inset-0 z-0">
+<canvas id="particle-net" class="absolute inset-0 w-full h-full" style="z-index:2"></canvas>
+
+</div>
+<div class="max-w-screen-2xl mx-auto w-full relative z-20">
+<div class="max-w-4xl">
+<span class="inline-block px-4 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary text-[10px] font-label uppercase tracking-[0.3em] mb-8">AI Transformation Partner</span>
+<h1 class="text-6xl md:text-8xl lg:text-9xl font-headline italic tracking-tighter leading-[0.9] text-tertiary mb-12">Your Business,<br/><span class="shimmer-text">Reimagined</span> <span class="opacity-50">by AI.</span></h1>
+<p class="text-xl md:text-2xl text-on-surface-variant max-w-2xl leading-relaxed mb-12 font-light">When AI solves everything, it solves nothing. <span class="text-on-surface font-medium italic font-headline">Bodie identifies the right use cases</span> and builds agent solutions that actually work.</p>
+<div class="flex flex-col sm:flex-row gap-6">
+<button onclick="openModal()" class="bg-gradient-to-r from-primary to-primary-fixed text-on-primary-fixed px-10 py-5 rounded-lg font-bold text-lg tracking-tight hover:shadow-[0_0_40px_rgba(247,255,186,0.3)] transition-all duration-500">Start Your Transformation</button>
+</div>
+</div>
+</div>
+<!-- Status indicator -->
+<div class="absolute bottom-12 right-12 hidden lg:flex items-center gap-4 bg-surface-container-high/40 backdrop-blur-xl p-4 rounded-xl border border-outline-variant/10">
+<div class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-secondary"></span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">System Status</span>
+<span class="text-xs text-secondary">Active & Ready</span>
+</div>
+</div>
+</section>
+
+
+
+<!-- ═══════════════ WHAT WE DO ═══════════════ -->
+<section class="py-32 px-8">
+<div class="max-w-screen-2xl mx-auto">
+<div class="mb-20 max-w-3xl reveal">
+<span class="text-[10px] uppercase tracking-[0.3em] text-primary font-label mb-4 block">What We Build</span>
+<h2 class="text-5xl md:text-7xl font-headline italic tracking-tight text-tertiary mb-6">More than chatbots.</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed">We build swarms of agents to handle the repetitive, error-prone tasks that consume your staff's time and resources.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Card 1 — Back Office Automation -->
+<div class="group rounded-2xl border border-outline-variant/10 bg-white/[0.03] p-10 md:p-14 hover:border-primary/20 transition-all duration-500 reveal">
+<span class="material-symbols-outlined text-primary text-5xl mb-8">precision_manufacturing</span>
+<h3 class="text-3xl font-headline italic text-tertiary mb-4">Back Office Automation</h3>
+<p class="text-on-surface-variant text-lg leading-relaxed">Leverage agents to collect, clean, and normalize data across your ERP, CRM, and POS systems. Machines organize your data so you can leverage it intelligently.</p>
+</div>
+<!-- Card 2 — Lead Pipeline Generation -->
+<div class="group rounded-2xl border border-outline-variant/10 bg-white/[0.03] p-10 md:p-14 hover:border-secondary/20 transition-all duration-500 reveal reveal-delay-1">
+<span class="material-symbols-outlined text-secondary text-5xl mb-8">trending_up</span>
+<h3 class="text-3xl font-headline italic text-tertiary mb-4">Lead Pipeline Generation</h3>
+<p class="text-on-surface-variant text-lg leading-relaxed">Agents that scan public databases, read articles and papers, and monitor competitors to find the right leads and buyers. Build the right pipeline so your team can focus on sales.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ═══════════════ METRICS — ANIMATED COUNTERS ═══════════════ -->
+<section class="py-32 relative overflow-x-clip overflow-y-visible">
+
+<div class="max-w-screen-2xl mx-auto px-8 relative z-10">
+<div class="max-w-3xl mb-20 reveal">
+<span class="text-[10px] uppercase tracking-[0.3em] text-primary font-label mb-4 block">The Shift</span>
+<h2 class="text-5xl md:text-6xl font-headline italic tracking-tight text-tertiary mb-8">We don't automate tasks.<br/>We automate <span class="shimmer-text">entire departments.</span></h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-white/[0.03] rounded-xl border border-outline-variant/10 p-10 group hover:border-primary/20 transition-all duration-500 relative overflow-hidden reveal">
+<div class="absolute top-0 right-0 w-40 h-40 bg-primary/5 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative z-10">
+<span class="text-primary text-6xl font-headline italic block mb-1 counter" data-target="10" data-suffix="×">0×</span>
+<p class="text-tertiary font-bold text-sm tracking-tight mb-3">Faster Decision Cycles</p>
+<div class="h-px bg-outline-variant/15 mb-4"></div>
+<p class="text-on-surface-variant text-sm leading-relaxed">Decisions that took days of meetings now happen in minutes. AI surfaces the data, models the outcomes, and recommends the move.</p>
+</div>
+</div>
+<div class="bg-white/[0.03] rounded-xl border border-outline-variant/10 p-10 group hover:border-secondary/20 transition-all duration-500 relative overflow-hidden reveal reveal-delay-1">
+<div class="absolute top-0 right-0 w-40 h-40 bg-secondary/5 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative z-10">
+<span class="text-secondary text-6xl font-headline italic block mb-1 counter" data-target="80" data-suffix="%">0%</span>
+<p class="text-tertiary font-bold text-sm tracking-tight mb-3">Manual Work Eliminated</p>
+<div class="h-px bg-outline-variant/15 mb-4"></div>
+<p class="text-on-surface-variant text-sm leading-relaxed">Data entry, report generation, customer routing, compliance checks — the grunt work disappears. Your team focuses on what actually matters.</p>
+</div>
+</div>
+<div class="bg-white/[0.03] rounded-xl border border-outline-variant/10 p-10 group hover:border-primary/20 transition-all duration-500 relative overflow-hidden reveal reveal-delay-2">
+<div class="absolute top-0 right-0 w-40 h-40 bg-primary/5 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative z-10">
+<span class="text-primary text-6xl font-headline italic block mb-1">24/7</span>
+<p class="text-tertiary font-bold text-sm tracking-tight mb-3">Always-On Intelligence</p>
+<div class="h-px bg-outline-variant/15 mb-4"></div>
+<p class="text-on-surface-variant text-sm leading-relaxed">Your AI systems don't sleep, don't forget, and don't make the same mistake twice. They learn from every interaction and get sharper over time.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ═══════════════ CTA ═══════════════ -->
+<section class="py-40 px-8 relative overflow-x-clip overflow-y-visible">
+
+<!-- Pulse rings -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+<div class="w-[200px] h-[200px] rounded-full border border-primary/10 pulse-ring"></div>
+<div class="w-[200px] h-[200px] rounded-full border border-secondary/10 pulse-ring" style="animation-delay: 0.8s"></div>
+<div class="w-[200px] h-[200px] rounded-full border border-primary/10 pulse-ring" style="animation-delay: 1.6s"></div>
+</div>
+<div class="max-w-4xl mx-auto text-center relative z-10">
+<h2 class="text-6xl md:text-8xl font-headline italic tracking-tighter text-tertiary mb-12 reveal">The future belongs to<br/><span class="shimmer-text">AI-native</span> companies.</h2>
+<p class="text-on-surface-variant text-xl md:text-2xl mb-16 leading-relaxed max-w-2xl mx-auto reveal reveal-delay-1">Every month you wait, your competitors get faster. Let's make sure you're the one they're chasing.</p>
+<div class="flex flex-col sm:flex-row justify-center gap-6 reveal reveal-delay-2">
+<button onclick="openModal()" class="bg-gradient-to-r from-primary to-primary-fixed text-on-primary-fixed px-12 py-6 rounded-lg font-bold text-xl tracking-tight active:scale-95 transition-all duration-300 hover:shadow-[0_0_40px_rgba(247,255,186,0.3)]">Talk to Us</button>
+</div>
+</div>
+</section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-[#0e0e0e] full-width border-t border-neutral-800/30">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-12 py-32 gap-8 max-w-screen-2xl mx-auto">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="font-serif italic text-xl text-neutral-200">BODIE AI</div>
+<p class="font-sans uppercase tracking-[0.2em] text-[10px] text-neutral-500">© 2026 BODIE AI. ARCHITECTING INTELLIGENCE.</p>
+</div>
+</div>
+</footer>
+
+<script>
+// Modal
+function openModal() { document.getElementById('contact-modal').classList.remove('hidden'); document.body.style.overflow='hidden'; }
+function closeModal() { document.getElementById('contact-modal').classList.add('hidden'); document.body.style.overflow=''; }
+function handleSubmit(e) {
+  e.preventDefault();
+  const f=e.target, d=new FormData(f);
+  const subj=`New inquiry from ${d.get('name')}${d.get('company')?' at '+d.get('company'):''}`;
+  const body=`Name: ${d.get('name')}\nEmail: ${d.get('email')}\nCompany: ${d.get('company')||'N/A'}\n\nMessage:\n${d.get('message')}`;
+  window.location.href=`mailto:ross@getbodie.ai?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+  document.getElementById('contact-form').classList.add('hidden');
+  document.getElementById('success-msg').classList.remove('hidden');
+  setTimeout(()=>{closeModal();setTimeout(()=>{document.getElementById('contact-form').classList.remove('hidden');document.getElementById('success-msg').classList.add('hidden');f.reset();},300);},2000);
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+// ═══ Particle Network (Hero) ═══
+(function(){
+  const c=document.getElementById('particle-net'),ctx=c.getContext('2d');
+  let w,h,ps=[],mouse={x:null,y:null};
+  const dpr=window.devicePixelRatio||2;
+  function resize(){w=c.width=c.offsetWidth*dpr;h=c.height=c.offsetHeight*dpr;}
+  class P{
+    constructor(){this.x=Math.random()*w;this.y=Math.random()*h;this.vx=(Math.random()-.5)*.8;this.vy=(Math.random()-.5)*.8;this.r=Math.random()*3+1.5;this.color=Math.random()>.5?'#00eefc':'#d8ef00';this.alpha=Math.random()*.5+.4;}
+    update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>w)this.vx*=-1;if(this.y<0||this.y>h)this.vy*=-1;if(mouse.x!==null){const dx=this.x-mouse.x*dpr,dy=this.y-mouse.y*dpr,d=Math.sqrt(dx*dx+dy*dy);if(d<200){this.vx+=dx/d*.3;this.vy+=dy/d*.3;}}this.vx*=.99;this.vy*=.99;}
+    draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=this.color;ctx.globalAlpha=this.alpha;ctx.fill();ctx.beginPath();ctx.arc(this.x,this.y,this.r*3,0,Math.PI*2);ctx.fillStyle=this.color;ctx.globalAlpha=this.alpha*.1;ctx.fill();ctx.globalAlpha=1;}
+  }
+  function lines(){for(let i=0;i<ps.length;i++)for(let j=i+1;j<ps.length;j++){const dx=ps[i].x-ps[j].x,dy=ps[i].y-ps[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<220){ctx.beginPath();ctx.moveTo(ps[i].x,ps[i].y);ctx.lineTo(ps[j].x,ps[j].y);ctx.strokeStyle='#00eefc';ctx.globalAlpha=(1-d/220)*.2;ctx.lineWidth=.8;ctx.stroke();ctx.globalAlpha=1;}}}
+  function anim(){ctx.clearRect(0,0,w,h);ps.forEach(p=>{p.update();p.draw();});lines();requestAnimationFrame(anim);}
+  resize();for(let i=0;i<120;i++)ps.push(new P());anim();
+  window.addEventListener('resize',()=>{resize();ps.forEach(p=>{if(p.x>w)p.x=w-10;if(p.y>h)p.y=h-10;});});
+  const heroSection=c.closest('section');
+  heroSection.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
+  heroSection.addEventListener('mouseleave',()=>{mouse.x=null;mouse.y=null;});
+})();
+
+
+
+
+
+// ═══ Scroll Reveal ═══
+(function(){
+  const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+})();
+
+// ═══ Animated Counters ═══
+(function(){
+  const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target,target=parseInt(el.dataset.target),suffix=el.dataset.suffix||'';let current=0;const step=target/40;const timer=setInterval(()=>{current+=step;if(current>=target){current=target;clearInterval(timer);}el.textContent=Math.round(current)+suffix;},30);obs.unobserve(el);}});},{threshold:0.5});
+  document.querySelectorAll('.counter').forEach(el=>obs.observe(el));
+})();
+</script>
+</body></html>
