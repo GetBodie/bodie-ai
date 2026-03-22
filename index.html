@@ -447,6 +447,8 @@ const carouselSection = document.getElementById('carousel-track')?.closest('sect
 if (carouselSection) {
   carouselSection.addEventListener('mouseenter', () => clearInterval(autoRotate));
   carouselSection.addEventListener('mouseleave', startAutoRotate);
+  carouselSection.addEventListener('touchstart', () => clearInterval(autoRotate), {passive:true});
+  carouselSection.addEventListener('touchend', () => setTimeout(startAutoRotate, 3000), {passive:true});
 }
 // Reset auto-rotate on manual interaction
 const origSlide = slideCarousel;
@@ -465,6 +467,7 @@ const origGo = goToSlide;
     const dy = e.changedTouches[0].clientY - startY;
     if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
       slideCarousel(dx < 0 ? 1 : -1);
+      buildDots();
     }
   }, {passive: true});
 })();
