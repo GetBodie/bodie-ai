@@ -188,13 +188,7 @@ borderRadius: {"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem
 <button onclick="slideCarousel(1)" class="w-10 h-10 rounded-full border border-outline-variant/20 flex items-center justify-center text-on-surface-variant hover:text-tertiary hover:border-primary/30 transition-all shrink-0">
 <span class="material-symbols-outlined text-lg">arrow_forward</span>
 </button>
-<div class="flex gap-2 ml-2">
-<button onclick="goToSlide(0)" class="carousel-dot w-2 h-2 rounded-full bg-primary w-6 transition-all"></button>
-<button onclick="goToSlide(1)" class="carousel-dot w-2 h-2 rounded-full bg-outline-variant/30 transition-all"></button>
-<button onclick="goToSlide(2)" class="carousel-dot w-2 h-2 rounded-full bg-outline-variant/30 transition-all"></button>
-<button onclick="goToSlide(3)" class="carousel-dot w-2 h-2 rounded-full bg-outline-variant/30 transition-all"></button>
-<button onclick="goToSlide(4)" class="carousel-dot w-2 h-2 rounded-full bg-outline-variant/30 transition-all"></button>
-</div>
+<div id="carousel-dots" class="flex gap-2 ml-2"></div>
 </div>
 <div class="overflow-hidden reveal">
 <div id="carousel-track" class="flex gap-8 transition-transform duration-500 ease-out" style="will-change:transform">
@@ -400,6 +394,19 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 let currentSlide = 0;
 const totalSlides = 5;
 function getVisibleSlides() { return window.innerWidth >= 768 ? 2 : 1; }
+function getMaxSlide() { return totalSlides - getVisibleSlides(); }
+function buildDots() {
+  const container = document.getElementById('carousel-dots');
+  if (!container) return;
+  const count = getMaxSlide() + 1;
+  container.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    const btn = document.createElement('button');
+    btn.onclick = () => goToSlide(i);
+    btn.className = `carousel-dot w-2 h-2 rounded-full transition-all ${i === currentSlide ? 'bg-primary w-6' : 'bg-outline-variant/30'}`;
+    container.appendChild(btn);
+  }
+}
 function updateCarousel() {
   const track = document.getElementById('carousel-track');
   if (!track) return;
@@ -411,6 +418,7 @@ function updateCarousel() {
     dot.className = `carousel-dot w-2 h-2 rounded-full transition-all ${i === currentSlide ? 'bg-primary w-6' : 'bg-outline-variant/30'}`;
   });
 }
+buildDots();
 function slideCarousel(dir) {
   const maxSlide = totalSlides - getVisibleSlides();
   currentSlide = Math.max(0, Math.min(maxSlide, currentSlide + dir));
@@ -421,7 +429,7 @@ function goToSlide(i) {
   currentSlide = Math.min(i, maxSlide);
   updateCarousel();
 }
-window.addEventListener('resize', updateCarousel);
+window.addEventListener('resize', () => { currentSlide = Math.min(currentSlide, getMaxSlide()); buildDots(); updateCarousel(); });
 
 // Auto-rotate every 4 seconds, pause on hover/touch
 let autoRotate = setInterval(() => {
